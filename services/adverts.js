@@ -43,10 +43,6 @@ const add_images = (folder,imageData)=>{
             })
     }
 
-    
-
-
-
   return "işlem başarılı"
 
 }
