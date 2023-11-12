@@ -42,9 +42,7 @@ const add_images = (folder,imageData)=>{
                 console.log('işlem başarılı :>> ' );
             })
     }
-
   return "işlem başarılı"
-
 }
 
 const listAds = (id)=>{
