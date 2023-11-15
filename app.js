@@ -4,6 +4,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const config = require("./config")
 const {advertRoutes, userRoutes} = require("./app_routes")
+const path = require("path")
 const loaders = require("./loaders")
 
 config();
@@ -14,7 +15,9 @@ const app = express();
 
 app.use(express.json());
 app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }))
 app.use(fileUpload());
+app.use("/uploads", express.static(path.join(__dirname,"./","uploads")))
 app.use(cors({
     origin : "*",
     methods : "POST, GET, PATCH, PUT, DELETE"

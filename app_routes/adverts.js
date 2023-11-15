@@ -8,8 +8,6 @@ const router = express.Router();
 router.get("/",index)
 router.get("/:_id",index)
 
-
-
 router.route("/")
 .post(validate(schemas.advertValidation),create)
 

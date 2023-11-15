@@ -18,7 +18,7 @@ const add_images = (folder,imageData)=>{
 
             const imageName = image.name
             const imageSave = path.join(folderPath,imageName)
-            const imageURL = `${folderPath}/${imageName}`
+            const imageURL = `uploads/adverts/${folder}/${imageName}`
             imageArray.push(imageURL);
 
             const updatedImages = imageArray
@@ -36,6 +36,8 @@ const add_images = (folder,imageData)=>{
         console.log("ananı avradını",imageData.advert_images)
             const imageName = imageData.advert_images.name
             const imageSave = path.join(folderPath,imageName)
+
+            
     
             imageData.advert_images.mv(imageSave,(err)=>{
                 if(err) console.log("err =>",err)
