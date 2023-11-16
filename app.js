@@ -10,12 +10,15 @@ const loaders = require("./loaders")
 config();
 loaders();
 
-
 const app = express();
 
 app.use(express.json());
-app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }))
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(
+    helmet({
+      crossOriginResourcePolicy: false,
+    })
+  );
 app.use(fileUpload());
 app.use("/uploads", express.static(path.join(__dirname,"./","uploads")))
 app.use(cors({

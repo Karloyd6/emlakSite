@@ -8,8 +8,8 @@ db.once("open",()=>{
 
 const connectDB = async ()=>{
     await mongoose.connect(`mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}?authSource=admin`,{
-    useNewUrlParser : true,
-    useUnifiedTopology : true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
 })
 }
 
