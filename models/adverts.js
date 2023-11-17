@@ -12,10 +12,10 @@ const advertSchema = new Schema({
         hood: String,
         detail : String,
     },
-    advert_images : Array
-    
-    
-    
+    advert_images : Array,
+    user : String,
+    type : String,
+    rentOrBuy : String
 },{timestamps : true, versionKey: false})
 
 module.exports = mongoose.model("adverts",advertSchema);

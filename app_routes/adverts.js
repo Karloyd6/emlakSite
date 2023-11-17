@@ -1,6 +1,6 @@
 const express = require("express");
 const httpStatus = require("http-status");
-const { index, create, image_uploads, deleteAdvert, updateAdvert } = require("../controllers/adverts")
+const { index, create, image_uploads, deleteAdvert, updateAdvert, deleteImage } = require("../controllers/adverts")
 const validate = require("../middlewares/validations");
 const schemas = require("../validation/adverts")
 const router = express.Router();
@@ -13,6 +13,9 @@ router.route("/")
 
 router.route("/image_uploads/:_id")
 .post(image_uploads);
+
+router.route("/delete_image/:_id&:url")
+.delete(deleteImage)
 
 router.delete("/:_id",deleteAdvert);
 

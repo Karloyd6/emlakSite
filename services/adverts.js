@@ -14,11 +14,14 @@ const add_images = (folder,imageData)=>{
     const folderPath = path.join(__dirname,"../",`uploads/adverts/${folder}`)
 
     if(imageData.advert_images.length > 1){
-        imageData.advert_images.forEach(image => {
+        imageData.advert_images.forEach((image,index) => {
 
-            const imageName = image.name
+            const extension = path.extname(image.name)
+            const imageName = `${index}${extension}`
             const imageSave = path.join(folderPath,imageName)
-            const imageURL = `uploads/adverts/${folder}/${imageName}`
+            const imageURL = {
+                name : `${imageName}`,
+                url :`uploads/adverts/${folder}/${imageName}`}
             imageArray.push(imageURL);
 
             const updatedImages = imageArray
@@ -60,15 +63,21 @@ const deleteAds = (id)=>{
 }
 
 const updateAds = (id,updated) => {
+
     return Adverts.findOneAndUpdate(id,updated)
 }
 
+const updateImages = (id,updated_images) => {
+    Adverts.findOneAndUpdate({_id : id},{advert_images : []});
+    return Adverts.findOneAndUpdate({_id : id},{advert_images : updated_images});
 
+}
 
 module.exports={
     insert,
     listAds,
     add_images,
     deleteAds,
-    updateAds
+    updateAds,
+    updateImages
 }

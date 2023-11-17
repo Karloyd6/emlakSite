@@ -1,6 +1,6 @@
 const httpStatus = require("http-status");
 const path = require("path")
-const { insert, listAds, add_images, deleteAds, updateAds } = require("../services/adverts");
+const { insert, listAds, add_images, deleteAds, updateAds, updateImages } = require("../services/adverts");
 const {fileMaker,deleteFile} = require("../utils/scripts/manageFile");
 
 //! LİST ADVERTS 'ALL & İD'//////
@@ -61,10 +61,25 @@ const updateAdvert = (req,res) => {
     })
 }
 
+//! IMAGE DELETE ///////////////////////////////////
+const deleteImage = (req,res) => {
+    const fileName = `${req.params._id}/${req.params.url}`
+    
+
+    listAds(req.params._id).then((add_res)=>{
+        const filteredImages = add_res[0].advert_images.filter((image) => image.url !== `uploads/adverts/${fileName}`) // find by id and put advert_images
+        updateImages(req.params._id,filteredImages).then((update_res)=>{
+            const delete_response = deleteFile(fileName)
+            res.status(httpStatus.OK).send(update_res)
+        }).catch(err => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err))
+    })
+}
+
 module.exports = {
     index,
     create,
     image_uploads,
     deleteAdvert,
-    updateAdvert
+    updateAdvert,
+    deleteImage
 }
