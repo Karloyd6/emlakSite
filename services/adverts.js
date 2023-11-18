@@ -17,7 +17,7 @@ const add_images = (folder,imageData)=>{
         imageData.advert_images.forEach((image,index) => {
 
             const extension = path.extname(image.name)
-            const imageName = `${index}${extension}`
+            const imageName = `${Math.random()}${extension}`
             const imageSave = path.join(folderPath,imageName)
             const imageURL = {
                 name : `${imageName}`,
@@ -25,6 +25,19 @@ const add_images = (folder,imageData)=>{
             imageArray.push(imageURL);
 
             const updatedImages = imageArray
+
+            //! BURALAR İNCELENECEK ////
+            // let advertImages = []
+            // Adverts.findOne({_id : folder}).then((result)=>{
+            //     console.log("result",result.advert_images)
+            //     advertImages=result.advert_images
+                
+            // }).catch(err => console.log("erorr",err))
+            
+            // updatedImages.concat(advertImages)
+
+            //! buraya kadar//////////////
+            
 
             const sonuc =Adverts.findByIdAndUpdate(folder,{advert_images : updatedImages}).exec()
 
@@ -68,8 +81,16 @@ const updateAds = (id,updated) => {
 }
 
 const updateImages = (id,updated_images) => {
-    Adverts.findOneAndUpdate({_id : id},{advert_images : []});
-    return Adverts.findOneAndUpdate({_id : id},{advert_images : updated_images});
+    let advertImages = []
+    Adverts.findOne({_id : id}).then((result)=>{
+        console.log("result",result.advert_images)
+        advertImages=result.advert_images
+        
+    }).catch(err => console.log("erorr",err))
+    
+    advertImages.push(updated_images)
+
+    return Adverts.findOneAndUpdate({_id : id},{advert_images : advertImages});
 
 }
 

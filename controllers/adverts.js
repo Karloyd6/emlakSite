@@ -6,6 +6,7 @@ const {fileMaker,deleteFile} = require("../utils/scripts/manageFile");
 //! LİST ADVERTS 'ALL & İD'//////
 const index = (req,res)=>{
     listAds(req.params._id).then((list_response)=>{
+        
         res.status(httpStatus.OK).send(list_response)
     }).catch(err => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err))
 }

@@ -6,14 +6,14 @@ const cors = require("cors");
 const config = require("./config")
 const {advertRoutes, userRoutes} = require("./app_routes")
 const path = require("path")
-const loaders = require("./loaders")
+const loaders = require("./loaders");
+const socketio =require("socket.io");
 
 config();
 loaders();
 
 const app = express();
 const server = http.createServer(app)
-const serverport = process.env.HTTP_SERVER_PORT || 2018
 
 app.use(express.json());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
@@ -34,10 +34,28 @@ app.use("/user",userRoutes);
 
 const PORT = process.env.APP_PORT || 3001
 
-app.listen(PORT, ()=>{
-    console.log(`Uygulama ${PORT} portu üzerinden yayında...`)
+// app.listen(PORT, ()=>{
+//     console.log(`Uygulama ${PORT} portu üzerinden yayında...`)
+// })
+
+const io =socketio(server,{
+  cors:{
+    origin : "*",
+    methods : ["GET", "POST", "OPTIONS", "DELETE", "PATCH"]
+  }
 })
 
-server.listen(serverport, ()=>{
-  console.log(`server on port : ${serverport}`)
+
+server.listen(PORT, ()=>{
+  console.log(`server on port : ${PORT}`)
+
+  io.on("connection", socket => {
+
+    socket.on("merhaba",(data)=>{
+      console.log(data)
+    });
+    socket.emit("mal","sefldknslkfsğdfjsdğfıj")
+  })
+  
 })
+
