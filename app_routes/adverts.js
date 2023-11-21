@@ -2,10 +2,11 @@ const express = require("express");
 const httpStatus = require("http-status");
 const { index, create, image_uploads, deleteAdvert, updateAdvert, deleteImage } = require("../controllers/adverts")
 const validate = require("../middlewares/validations");
-const schemas = require("../validation/adverts")
+const schemas = require("../validation/adverts");
+const authenticate = require("../middlewares/authenticate")
 const router = express.Router();
 
-router.get("/",index)
+router.route("/").get(authenticate,index)
 router.get("/:_id",index)
 
 router.route("/")

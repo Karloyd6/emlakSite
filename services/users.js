@@ -10,7 +10,12 @@ const newUser = (userData) =>{
     return user.save()
 }
 
+const updatePassword= (id,password) => {
+    return User.findByIdAndUpdate({_id : id},{password : password})
+}
+
 module.exports={
     newUser,
-    loginUser
+    loginUser,
+    updatePassword
 }

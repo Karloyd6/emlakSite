@@ -7,7 +7,8 @@ const userSchema = new Schema({
     username : String,
     email : String,
     password: String,
-    phoneNumber : String
+    phoneNumber : String,
+    profile_image : String
 },{timestamps : true, versionKey : false});
 
 module.exports = mongoose.model("userSchema",userSchema)

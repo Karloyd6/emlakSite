@@ -12,7 +12,7 @@ const insert = (advertData) => {
 
 const add_images = async (folder,imageData) => {
 
-    console.log(imageData.advert_images.length)
+    // console.log(imageData.advert_images.length)
 
     const savedImageArray = [];
     const folderPath = path.join(__dirname,"../",`uploads/adverts/${folder}`)

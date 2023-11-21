@@ -1,6 +1,6 @@
 const httpStatus = require("http-status");
-const { newUser, loginUser } = require("../services/users")
-const { passwordToHash } = require("../utils/scripts/helper")
+const { newUser, loginUser, updatePassword } = require("../services/users")
+const { passwordToHash, generateAccessToken, generateRefreshToken } = require("../utils/scripts/helper")
 
 const index = (req,res)=>{
     res.status(httpStatus.OK).send("login_req");
@@ -12,12 +12,17 @@ const login = (req,res)=>{
     
     req.body.password = passwordToHash(req.body.password)
 
-    loginUser(req.body).then((login_res)=>{
-        if(login_res !== null){
-           return res.status(httpStatus.OK).send(login_res);
+    loginUser(req.body).then((user)=>{
+        if(!user) return res.status(httpStatus.BAD_REQUEST).send({hata : "Kullanıcı bulunamadı"})
+           
+        user = {
+            ...user.toObject(),
+            access_token : generateAccessToken(user),
+            refresh_token : generateRefreshToken(user)
         }
-        console.log(login_res)
-        return res.status(httpStatus.BAD_REQUEST).send({hata : "Kullanıcı bulunamadı"})
+        
+        user.password = "not show"
+        return res.status(httpStatus.OK).send(user);
         
     }).catch((err)=>{
         res.status(httpStatus.NOT_FOUND).send("Kullanıcı Bulunamadı");
@@ -37,8 +42,30 @@ const create = (req,res)=>{
 
 }
 
+const changePassword = (req,res) => {
+    //! Şifre değişimi database yazılacak
+    req.body.password = passwordToHash(req.body.password)
+
+    const id = req.params._id
+    const password =req.body.password
+
+    updatePassword(id,password).then((update_response)=>{
+        res.status(httpStatus.OK).send("Şifre başarılı bir şekilde değiştirildi...")
+    }).catch((err) => {
+        res.status(httpStatus.BAD_REQUEST).send({error : "Şifre değiştirilirken bir hata oluştu..."})
+    })
+
+}
+
+const profileImageUpload = (req , res)=>{
+    console.log(req.files)
+    console.log(req.params._id)
+}
+
 module.exports = {
     index,
     create,
-    login
+    login,
+    changePassword,
+    profileImageUpload
 }

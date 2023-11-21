@@ -24,8 +24,8 @@ const create = (req,res)=>{
 //! İMAGE UPLOAD WITH ID ///////////////////
 const image_uploads = (req,res) => {
 
-    console.log(req.params)
-    console.log(req.files)
+    // console.log(req.params)
+    // console.log(req.files)
 
     const advertId = req.params._id;
     const imageData = req.files
@@ -70,7 +70,7 @@ const deleteImage = (req,res) => {
     listAds(req.params._id).then((add_res)=>{
         const filteredImages = add_res[0].advert_images.filter((image) => image.url !== `uploads/adverts/${fileName}`) // find by id and put advert_images
         updateImages(req.params._id,filteredImages).then((update_res)=>{
-            const delete_response = deleteFile(fileName)
+            // const delete_response = deleteFile(fileName)
             res.status(httpStatus.OK).send(update_res)
         }).catch(err => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err))
     })
