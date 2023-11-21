@@ -1,5 +1,6 @@
 const httpStatus = require("http-status");
-const { newUser, loginUser, updatePassword } = require("../services/users")
+// const { userFileMaker } = require("../utils/scripts/manageFile.js")
+const { newUser, loginUser, updatePassword,add_profile_image } = require("../services/users")
 const { passwordToHash, generateAccessToken, generateRefreshToken } = require("../utils/scripts/helper")
 
 const index = (req,res)=>{
@@ -57,9 +58,15 @@ const changePassword = (req,res) => {
 
 }
 
-const profileImageUpload = (req , res)=>{
-    console.log(req.files)
-    console.log(req.params._id)
+const profileImageUpload = (req, res)=>{
+    const id = req.params._id
+    const profile_image = req.files.profile_image
+
+
+    add_profile_image(id,profile_image)
+    res.status(httpStatus.CREATED).send("response")
+    
+
 }
 
 module.exports = {

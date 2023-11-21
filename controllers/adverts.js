@@ -24,9 +24,6 @@ const create = (req,res)=>{
 //! İMAGE UPLOAD WITH ID ///////////////////
 const image_uploads = (req,res) => {
 
-    // console.log(req.params)
-    // console.log(req.files)
-
     const advertId = req.params._id;
     const imageData = req.files
 
