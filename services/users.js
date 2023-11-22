@@ -25,18 +25,26 @@ const add_profile_image = async (id,profile_image)=>{
     const response = await User.findByIdAndUpdate({_id : id},{profile_image : imageUrl}).exec()
 
     
+    
     const locateImage = path.join(folderPath,imageName);
 
     profile_image.mv(locateImage,(err)=>{
         if(err) return err
         return "işlem başarılı"
     })
+    return response;
 
 }
+
+const update_user = (id,data)=>{
+    return User.findByIdAndUpdate({_id : id}, data).exec()
+}
+
 
 module.exports={
     newUser,
     loginUser,
     updatePassword,
-    add_profile_image
+    add_profile_image,
+    update_user
 }

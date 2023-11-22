@@ -1,11 +1,18 @@
 const httpStatus = require("http-status");
 // const { userFileMaker } = require("../utils/scripts/manageFile.js")
-const { newUser, loginUser, updatePassword,add_profile_image } = require("../services/users")
+const { newUser, loginUser, updatePassword,add_profile_image, update_user } = require("../services/users")
 const { passwordToHash, generateAccessToken, generateRefreshToken } = require("../utils/scripts/helper")
 
 const index = (req,res)=>{
-    res.status(httpStatus.OK).send("login_req");
-
+    
+    // console.log('req.body :>> ', req.params._id);
+    loginUser({_id : req.params._id}).then((user_response)=>{
+        user_response.password = null
+        console.log(user_response)
+        res.status(httpStatus.OK).send(user_response);
+    }).catch((err) => {
+        res.status(httpStatus.BAD_REQUEST).send({error : "Kullanıcı bulunamadı"})
+    })
     
 }
 
@@ -63,9 +70,24 @@ const profileImageUpload = (req, res)=>{
     const profile_image = req.files.profile_image
 
 
-    add_profile_image(id,profile_image)
-    res.status(httpStatus.CREATED).send("response")
+    add_profile_image(id,profile_image).then((image_response)=>{
+        console.log("img",image_response.profile_image)
+        
+        res.status(httpStatus.CREATED).send(image_response.profile_image)
+    })
     
+
+}
+
+const updateUser = (req,res)=>{
+    const id = req.params._id;
+    const data = req.body
+
+    update_user(id,data).then((update_response)=> {
+        res.status(httpStatus.CREATED).send(update_response)
+    }).catch((err)=>{
+        res.status(httpStatus).send("Hata : Kullanıcı veri tabanına eklenirken bir sourn oluştu!")
+    })
 
 }
 
@@ -74,5 +96,6 @@ module.exports = {
     create,
     login,
     changePassword,
-    profileImageUpload
+    profileImageUpload,
+    updateUser
 }

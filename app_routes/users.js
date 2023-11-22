@@ -1,6 +1,6 @@
 const express = require("express");
 const httpStatus = require("http-status");
-const { index, create, login, changePassword, profileImageUpload } = require("../controllers/users");
+const { index, create, login, changePassword, profileImageUpload, updateUser } = require("../controllers/users");
 const authenticate = require("../middlewares/authenticate")
 // const validate = require("../middlewares/validations");
 // const schema = require("../validation/")
@@ -16,6 +16,9 @@ router.post("/login",login);
 
 router.route("/update/chgpass/:_id")
 .post(changePassword);
+
+router.route("/update/:_id")
+.post(updateUser)
 
 router.route("/userimage/:_id").post(profileImageUpload)
 
