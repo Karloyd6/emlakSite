@@ -2,6 +2,7 @@ const httpStatus = require("http-status");
 const JWT = require("jsonwebtoken");
 
 const authenticateToken = (req,res,next) =>{
+    console.log(req.headers)
     const authHeader = req.headers["authorization"];
     const token = authHeader.split(" ")[1]
 

@@ -10,16 +10,16 @@ const router = express.Router();
 // router.get("/",index)
 router.route("/:_id").get(index)
 
-router.post("/create",create);
+router.route("/create").post(authenticate,create);
 
 router.post("/login",login);
 
 router.route("/update/chgpass/:_id")
-.post(changePassword);
+.post(authenticate,changePassword);
 
 router.route("/update/:_id")
-.post(updateUser)
+.post(authenticate,updateUser)
 
-router.route("/userimage/:_id").post(profileImageUpload)
+router.route("/userimage/:_id").post(authenticate,profileImageUpload)
 
 module.exports= router;

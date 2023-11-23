@@ -6,21 +6,21 @@ const schemas = require("../validation/adverts");
 const authenticate = require("../middlewares/authenticate")
 const router = express.Router();
 
-router.route("/").get(authenticate,index)
+router.route("/").get(index)
 router.get("/:_id",index)
 
 router.route("/")
-.post(validate(schemas.advertValidation),create)
+.post(authenticate,validate(schemas.advertValidation),create)
 
 router.route("/image_uploads/:_id")
-.post(image_uploads);
+.post(authenticate,image_uploads);
 
 router.route("/delete_image/:_id&:url")
-.delete(deleteImage)
+.delete(authenticate,deleteImage)
 
-router.delete("/:_id",deleteAdvert);
+router.route("/:_id").delete(authenticate,deleteAdvert);
 
 router.route("/update/:_id")
-.post(validate(schemas.advertValidation),updateAdvert)
+.post(authenticate,validate(schemas.advertValidation),updateAdvert)
 
 module.exports = router;
