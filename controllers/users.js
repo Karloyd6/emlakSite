@@ -17,7 +17,6 @@ const index = (req,res)=>{
 }
 
 const login = (req,res)=>{
-    
     req.body.password = passwordToHash(req.body.password)
 
     loginUser(req.body).then((user)=>{
@@ -30,6 +29,7 @@ const login = (req,res)=>{
         }
         
         user.password = "not show"
+        console.log(user)
         return res.status(httpStatus.OK).send(user);
         
     }).catch((err)=>{
