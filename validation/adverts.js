@@ -6,6 +6,7 @@ const advertValidation = Joi.object({
     price : Joi.string().min(2).required(),
     adress : Joi.object().keys({
         city : Joi.string(),
+        county : Joi.string(),
         district : Joi.string(),
         hood : Joi.string(),
         detail : Joi.string()

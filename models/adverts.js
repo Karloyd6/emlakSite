@@ -2,12 +2,13 @@ const mongoose = require("mongoose");
 const {Schema} = mongoose;
 
 const advertSchema = new Schema({
-    
+    advertId : String,
     title : String,
     description : String,
     price :String,
     adress : {
         city : String,
+        county : String,
         district : String,
         hood: String,
         detail : String,

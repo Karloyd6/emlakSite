@@ -2,6 +2,7 @@ const httpStatus = require("http-status");
 const path = require("path")
 const { insert, listAds, add_images, deleteAds, updateAds, updateImages } = require("../services/adverts");
 const {fileMaker,deleteFile} = require("../utils/scripts/manageFile");
+const { generateAdvertId } = require("../utils/scripts/helper");
 
 //! LİST ADVERTS 'ALL & İD'//////
 const index = (req,res)=>{
@@ -14,7 +15,14 @@ const index = (req,res)=>{
 
 //! CREATE ADVERT////////////////////
 const create = (req,res)=>{
-    insert(req.body).then((create_res)=>{
+    console.log('req.body :>> ', req.body);
+    const advertId = generateAdvertId()
+    const newAdvert = {
+        ...req.body,
+        advertId : advertId
+    }
+    // console.log(advertId)
+    insert(newAdvert).then((create_res)=>{
        fileMaker(create_res._id.toString())
         res.status(httpStatus.CREATED).send(create_res)
 

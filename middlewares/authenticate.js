@@ -11,7 +11,7 @@ const authenticateToken = (req,res,next) =>{
     }
 
     JWT.verify(token , process.env.ACCESS_TOKEN_SECRET_KEY, (err, user) => {
-        if(err) return res.status(httpStatus.FORBIDDEN).send({error : "Token süresi geçmiş..."})
+        if(err) return res.status(httpStatus.UNAUTHORIZED).send({error : "Token süresi geçmiş..."})
 
         req.user = user;
         next()

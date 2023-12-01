@@ -29,7 +29,7 @@ const login = (req,res)=>{
         }
         
         user.password = "not show"
-        console.log(user)
+        // console.log(user)
         return res.status(httpStatus.OK).send(user);
         
     }).catch((err)=>{
@@ -71,7 +71,7 @@ const profileImageUpload = (req, res)=>{
 
 
     add_profile_image(id,profile_image).then((image_response)=>{
-        console.log("img",image_response.profile_image)
+        // console.log("img",image_response.profile_image)
         
         res.status(httpStatus.CREATED).send(image_response.profile_image)
     })

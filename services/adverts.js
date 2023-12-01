@@ -3,6 +3,7 @@ const path = require("path");
 const fs = require("fs")
 
 const insert = (advertData) => {
+    
     const adverts = new Adverts(advertData);
 
     return adverts.save();
@@ -11,9 +12,6 @@ const insert = (advertData) => {
 
 
 const add_images = async (folder,imageData) => {
-
-    // console.log(imageData.advert_images.length)
-
     const savedImageArray = [];
     const folderPath = path.join(__dirname,"../",`uploads/adverts/${folder}`)
 
@@ -88,14 +86,7 @@ const updateAds = (id,updated) => {
 }
 
 const updateImages = (id,updated_images) => {
-    // let advertImages = []
-    // Adverts.findOne({_id : id}).then((result)=>{
-    //     console.log("result",result.advert_images)
-    //     advertImages=result.advert_images
-        
-    // }).catch(err => console.log("erorr",err))
-    
-    // advertImages.push(updated_images)
+
 
     return Adverts.findOneAndUpdate({_id : id},{advert_images : updated_images});
 
