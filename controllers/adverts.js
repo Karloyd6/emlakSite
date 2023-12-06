@@ -1,8 +1,11 @@
 const httpStatus = require("http-status");
 const path = require("path")
-const { insert, listAds, add_images, deleteAds, updateAds, updateImages } = require("../services/adverts");
+const { insert, listAds, add_images, deleteAds, updateAds, updateImages, findByType } = require("../services/adverts");
 const {fileMaker,deleteFile} = require("../utils/scripts/manageFile");
 const { generateAdvertId } = require("../utils/scripts/helper");
+// const { findById } = require("../models/adverts");
+
+
 
 //! LİST ADVERTS 'ALL & İD'//////
 const index = (req,res)=>{
@@ -70,15 +73,19 @@ const updateAdvert = (req,res) => {
 //! IMAGE DELETE ///////////////////////////////////
 const deleteImage = (req,res) => {
     const fileName = `${req.params._id}/${req.params.url}`
-    
 
     listAds(req.params._id).then((add_res)=>{
         const filteredImages = add_res[0].advert_images.filter((image) => image.url !== `uploads/adverts/${fileName}`) // find by id and put advert_images
         updateImages(req.params._id,filteredImages).then((update_res)=>{
-            // const delete_response = deleteFile(fileName)
             res.status(httpStatus.OK).send(update_res)
         }).catch(err => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err))
     })
+}
+
+const listByType = (req,res)=>{
+    findByType(req.params.type).then((response)=>{
+        res.status(httpStatus.OK).send(response)
+    }).catch(err => res.status(httpStatus.NOT_FOUND).send("Uygun kayıt bulunamadı"))
 }
 
 module.exports = {
@@ -87,5 +94,6 @@ module.exports = {
     image_uploads,
     deleteAdvert,
     updateAdvert,
-    deleteImage
+    deleteImage,
+    listByType
 }

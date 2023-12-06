@@ -1,6 +1,6 @@
 const httpStatus = require("http-status");
 // const { userFileMaker } = require("../utils/scripts/manageFile.js")
-const { newUser, loginUser, updatePassword,add_profile_image, update_user } = require("../services/users")
+const { newUser, loginUser, updatePassword,add_profile_image, update_user, findAuthor } = require("../services/users")
 const { passwordToHash, generateAccessToken, generateRefreshToken } = require("../utils/scripts/helper")
 
 const index = (req,res)=>{
@@ -28,8 +28,8 @@ const login = (req,res)=>{
             refresh_token : generateRefreshToken(user)
         }
         
-        user.password = "not show"
-        // console.log(user)
+        user.password = null
+        
         return res.status(httpStatus.OK).send(user);
         
     }).catch((err)=>{
@@ -89,6 +89,15 @@ const updateUser = (req,res)=>{
         res.status(httpStatus).send("Hata : Kullanıcı veri tabanına eklenirken bir sourn oluştu!")
     })
 
+};
+
+const getAuthorInfo = (req,res)=>{
+    console.log(req.params.username)
+    findAuthor(req.params.username).then((user_response)=>{
+        res.status(httpStatus.OK).send(user_response)
+    }).catch((err)=>{
+        res.status(httpStatus.NOT_FOUND).send({hata : err})
+    })
 }
 
 module.exports = {
@@ -97,5 +106,6 @@ module.exports = {
     login,
     changePassword,
     profileImageUpload,
-    updateUser
+    updateUser,
+    getAuthorInfo
 }

@@ -8,16 +8,17 @@ const passwordToHash = (password)=>{
 }
 
 const generateAccessToken = (user)=>{
-    return JWT.sign({foo: user},process.env.ACCESS_TOKEN_SECRET_KEY, { expiresIn : "3h"})
+    user = user._id
+    return JWT.sign({foo: user},process.env.ACCESS_TOKEN_SECRET_KEY, { expiresIn : "1d"})
 }
 const generateRefreshToken = (user)=>{
     return JWT.sign({foo: user},process.env.REFRESH_TOKEN_SECRET_KEY)
 }
 
 const generateAdvertId = ()=>{
-        const length = 8;
+        const length = 6;
         let result = '';
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const characters = '0123456789';
         const charactersLength = characters.length;
         let counter = 0;
         while (counter < length) {

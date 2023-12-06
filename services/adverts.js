@@ -86,10 +86,14 @@ const updateAds = (id,updated) => {
 }
 
 const updateImages = (id,updated_images) => {
-
-
     return Adverts.findOneAndUpdate({_id : id},{advert_images : updated_images});
+}
 
+const findByType = (type) => {
+    if(type){
+        return Adverts.find({type : type})
+    }
+    return Adverts.find({})
 }
 
 module.exports={
@@ -98,5 +102,6 @@ module.exports={
     add_images,
     deleteAds,
     updateAds,
-    updateImages
+    updateImages,
+    findByType
 }

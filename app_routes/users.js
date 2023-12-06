@@ -1,6 +1,6 @@
 const express = require("express");
 const httpStatus = require("http-status");
-const { index, create, login, changePassword, profileImageUpload, updateUser } = require("../controllers/users");
+const { index, create, login, changePassword, profileImageUpload, updateUser, getAuthorInfo } = require("../controllers/users");
 const authenticate = require("../middlewares/authenticate")
 // const validate = require("../middlewares/validations");
 // const schema = require("../validation/")
@@ -9,6 +9,7 @@ const router = express.Router();
 
 // router.get("/",index)
 router.route("/:_id").get(index)
+router.route("/author/:username").get(getAuthorInfo)
 
 router.route("/create").post(authenticate,create);
 

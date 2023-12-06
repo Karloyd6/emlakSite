@@ -40,11 +40,16 @@ const update_user = (id,data)=>{
     return User.findByIdAndUpdate({_id : id}, data).exec()
 }
 
+const findAuthor = (user)=>{
+    return User.findOne({username : user })
+}
+
 
 module.exports={
     newUser,
     loginUser,
     updatePassword,
     add_profile_image,
-    update_user
+    update_user,
+    findAuthor
 }

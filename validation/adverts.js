@@ -11,6 +11,18 @@ const advertValidation = Joi.object({
         hood : Joi.string(),
         detail : Joi.string()
     }),
+    info : {
+        room: Joi.string(),
+        m2: Joi.string(),
+        bath: Joi.string(),
+        floor: Joi.string(),
+        allFloor: Joi.string(),
+        buildAge: Joi.string(),
+        heating: Joi.string(),
+        front: Joi.string(),
+        exchange: Joi.string(),
+        credit: Joi.string()
+    },
     advert_images : Joi.array(),
     user: Joi.string().required(),
     type : Joi.string().required(),
