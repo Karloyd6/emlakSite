@@ -1,3 +1,4 @@
+const { string } = require("joi");
 const mongoose = require("mongoose");
 const {Schema} = mongoose;
 
@@ -24,6 +25,10 @@ const advertSchema = new Schema({
         front: String,
         exchange: String,
         credit: String
+    },
+    location: {
+        lat : String,
+        lng : String
     },
     advert_images : Array,
     user : String,

@@ -23,6 +23,10 @@ const advertValidation = Joi.object({
         exchange: Joi.string(),
         credit: Joi.string()
     },
+    location: {
+        lat : Joi.number(),
+        lng : Joi.number()
+    },
     advert_images : Joi.array(),
     user: Joi.string().required(),
     type : Joi.string().required(),

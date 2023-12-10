@@ -92,7 +92,6 @@ const updateUser = (req,res)=>{
 };
 
 const getAuthorInfo = (req,res)=>{
-    console.log(req.params.username)
     findAuthor(req.params.username).then((user_response)=>{
         res.status(httpStatus.OK).send(user_response)
     }).catch((err)=>{
