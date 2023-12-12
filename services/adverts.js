@@ -1,6 +1,7 @@
 const Adverts = require("../models/adverts")
 const path = require("path");
-const fs = require("fs")
+const fs = require("fs");
+const adverts = require("../models/adverts");
 
 const insert = (advertData) => {
     
@@ -96,6 +97,10 @@ const findByType = (type) => {
     return Adverts.find({})
 }
 
+const getShowcaseList = ()=>{
+    return Adverts.find({showcase : true})
+}
+
 module.exports={
     insert,
     listAds,
@@ -103,5 +108,6 @@ module.exports={
     deleteAds,
     updateAds,
     updateImages,
-    findByType
+    findByType,
+    getShowcaseList
 }

@@ -30,7 +30,8 @@ const advertValidation = Joi.object({
     advert_images : Joi.array(),
     user: Joi.string().required(),
     type : Joi.string().required(),
-    rentOrBuy : Joi.string()
+    rentOrBuy : Joi.string(),
+    showcase : Joi.boolean()
 })
 
 module.exports = {

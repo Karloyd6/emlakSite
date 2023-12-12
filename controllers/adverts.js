@@ -1,6 +1,6 @@
 const httpStatus = require("http-status");
 const path = require("path")
-const { insert, listAds, add_images, deleteAds, updateAds, updateImages, findByType } = require("../services/adverts");
+const { insert, listAds, add_images, deleteAds, updateAds, updateImages, findByType, getShowcaseList } = require("../services/adverts");
 const {fileMaker,deleteFile} = require("../utils/scripts/manageFile");
 const { generateAdvertId } = require("../utils/scripts/helper");
 // const { findById } = require("../models/adverts");
@@ -88,6 +88,14 @@ const listByType = (req,res)=>{
     }).catch(err => res.status(httpStatus.NOT_FOUND).send("Uygun kayıt bulunamadı"))
 }
 
+const showcaseList = (req, res)=>{
+    getShowcaseList().then((response)=>{
+        res.status(httpStatus.OK).send(response)
+    }).catch((err)=>{
+        res.status(httpStatus.NOT_FOUND).send("Uygun kayıt bulunamadı")
+    })
+}
+
 module.exports = {
     index,
     create,
@@ -95,5 +103,6 @@ module.exports = {
     deleteAdvert,
     updateAdvert,
     deleteImage,
-    listByType
+    listByType,
+    showcaseList
 }

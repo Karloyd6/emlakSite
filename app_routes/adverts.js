@@ -1,6 +1,6 @@
 const express = require("express");
 const httpStatus = require("http-status");
-const { index, create, image_uploads, deleteAdvert, updateAdvert, deleteImage, listByType } = require("../controllers/adverts")
+const { index, create, image_uploads, deleteAdvert, updateAdvert, deleteImage, listByType, showcaseList } = require("../controllers/adverts")
 const validate = require("../middlewares/validations");
 const schemas = require("../validation/adverts");
 const authenticate = require("../middlewares/authenticate")
@@ -12,6 +12,8 @@ router.route("/").get(index)
 router.get("/:_id",index)
 // GET ADVERTS WİTH QUERY
 router.route("/type/:type").get(listByType)
+// GET SHOWCASE ADVERTS
+router.route("/showcase/:isTrue").get(showcaseList)
 
 router.route("/")
 .post(authenticate,validate(schemas.advertValidation),create)

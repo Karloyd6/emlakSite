@@ -9,7 +9,7 @@ const passwordToHash = (password)=>{
 
 const generateAccessToken = (user)=>{
     user = user._id
-    return JWT.sign({foo: user},process.env.ACCESS_TOKEN_SECRET_KEY, { expiresIn : "1d"})
+    return JWT.sign({foo: user},process.env.ACCESS_TOKEN_SECRET_KEY, { expiresIn : "360d"})
 }
 const generateRefreshToken = (user)=>{
     return JWT.sign({foo: user},process.env.REFRESH_TOKEN_SECRET_KEY)

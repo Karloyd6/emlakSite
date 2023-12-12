@@ -1,4 +1,3 @@
-const { string } = require("joi");
 const mongoose = require("mongoose");
 const {Schema} = mongoose;
 
@@ -33,7 +32,8 @@ const advertSchema = new Schema({
     advert_images : Array,
     user : String,
     type : String,
-    rentOrBuy : String
+    rentOrBuy : String,
+    showcase : Boolean
 },{timestamps : true, versionKey: false})
 
 module.exports = mongoose.model("adverts",advertSchema);
